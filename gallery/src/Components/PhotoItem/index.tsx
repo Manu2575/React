@@ -11,6 +11,8 @@ export const PhotoItem = ({url, name, deleteFunction}: Props) => {
         <C.Container>
             <img src={url} alt={name} />
             {name}
+            <br />
+            {name.toUpperCase()}
             <button onClick={() => deleteFunction(name)}>Deletar</button>
              
         </C.Container>
