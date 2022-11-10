@@ -1,0 +1,104 @@
+.App {
+  background-color: #282c34;
+  min-height: 97vh;
+  color: white;
+}
+
+.App-h1 {
+  margin: 0px 0px -100px 0px;
+  padding: 0px 0px 0px 0px;
+  font-size: 40px;
+  text-align: center;
+}
+
+.App-header {
+  background-color: #ca2c48;
+  width: 600px;
+  heitht: 600px;
+  border-radius: 30px 30px 0px 0px;
+  margin: 98px 0px 0px 270px;
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+}
+
+.App-header-h2 {
+  font-size: 25px;
+  display: flex;
+  margin-left: auto;
+  margin: 0px 0px 0px 250px;
+  align-content: flex-start;
+  justify-content: space-between
+}
+.App-header-h2 button {
+  background-color: #282c34;
+  color: white;
+  font-size: 10px;
+  margin-left: auto;
+  margin: 0px 0px 0px 140px;
+  border-radius: 5px;
+  cursor: pointer;
+  
+}
+
+.App-header-span {
+  font-size: 140px;
+  color: white;
+}
+
+.App-header-a button {
+  margin: 0px 15px;
+  height: 40px;
+  width: 100px;
+  border-color: #ca2c48;
+  border: 1px solid #ca2c48;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.App-main {
+  background-color: white;
+  width: 600px;
+  margin: 0px 0px -20px 270px;
+  padding: 0px 60px;
+  height: 2px
+}
+
+.App-main button {
+  background-color: #ca2c48;
+  color: white;
+  margin: 0px 65px;
+  height: 30px;
+  width: 168px;
+  border-color: black;
+  border: 1px solid #ca2c48;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+.App-footer {
+  background-color: white;
+  width: 600px;
+  heitht: 300px;
+  border-radius: 0px 0px 30px 30px;
+  margin: -20px 0px 0px 270px;
+  padding: 60px;
+  color: black;
+  height: 2px
+}
+
+.App-footer-div {
+  height: 40px;
+  width: 600px;
+  border-color: white;
+  border: 1px solid white;
+  display: flex;
+  align-content: flex-start;
+  justify-content: space-between;
+  cursor: pointer;
+  
+}
+

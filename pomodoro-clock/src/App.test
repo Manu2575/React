@@ -1,0 +1,91 @@
+import { useState, useEffect } from 'react';
+import './App.css';
+import { format } from 'date-fns'
+
+function App() {
+
+  const periodPausa = 60 * 0.00
+  const periodTime = 60 * 0.35
+  const shortPause = 60 * 0.25
+
+  const [ baseTime, setBaseTime ] = useState(periodPausa);
+  const [timer, setTimer] = useState(baseTime);
+  const [ timeLeft, setTimeLeft ] = useState(format(baseTime * 1000, 'mm:ss'));
+  const [ isActive, setIsActive ] = useState(false);
+  const [ storeTimeOut, setStoreTimeOut ] = useState(null);
+  
+  useEffect(() => {
+  
+    if(baseTime === shortPause){
+      if(isActive === true){
+        setStoreTimeOut(setTimeout(() => {
+          setTimer(timer - 1)
+          if (timer === 0){
+            setBaseTime(periodTime)
+            setIsActive(false)
+          }
+          console.log(isActive)
+          setTimeLeft(format(timer * 1000, 'mm:ss'))
+        }, 1000)) 
+      }
+    }else if (baseTime === periodTime){
+      if(isActive === true){
+        setStoreTimeOut(setTimeout(() => {
+          setTimer(timer -1)
+          if(timer === 0){
+            setBaseTime(shortPause)
+            setIsActive(false)
+          }
+          console.log(isActive)
+          setTimeLeft(format(timer * 1000, 'mm:ss'))
+        }, 1000))
+      }
+    }else  {
+      clearTimeout(storeTimeOut)
+    };
+}, [isActive,timer]);
+  
+  useEffect(() =>{
+    resetTime()
+  }, [baseTime])
+
+  function resetTime () {
+    setIsActive(false);
+    setTimer(baseTime);
+    setTimeLeft(format(baseTime * 1000, 'mm:ss'));
+    
+  }
+  
+  return (
+    <div className="App">
+      <h1 className="App-h1">Pomodoro Timer</h1>
+      <header className="App-header">
+        <h2 className="App-header-h2">Session</h2>
+        <span className="App-header-span">
+          {timeLeft}
+        </span>
+        <a className="App-header-a">
+          <button onClick={() => {setIsActive(true)}}>▶️Start</button>
+          <button onClick={() => {resetTime()}}>🔁Reset</button>
+          <button onClick={() => {setIsActive(false)}}>🔁Stop</button>
+        </a>
+      </header>
+      <main className="App-main">
+        <table>
+            <td>Session Length</td><td>Break Length</td>
+        </table>
+      </main>
+      <footer className='App-footer'>
+        <a>
+        <button onClick={() => {setBaseTime(periodTime)}}>⬆️25 min⬇️</button>
+        <button onClick={() => {setBaseTime(shortPause)}}>⬆️5 min⬇️</button>
+        </a>
+        </footer>
+    </div>
+  );
+}
+
+export default App;
+
+
+
