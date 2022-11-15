@@ -1,0 +1,76 @@
+.App {
+  text-align: center;
+  background-color: #CD853F
+}
+
+.App-h1 {
+  height: 10vmin;
+}
+
+.App-header {
+  padding: 0px 450px 0px 450px;
+}
+
+.App-header-span {
+  background-color: #282c34;
+  border-radius: 10px 10px 0px 0px;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-header-span input {
+  font-size: 25px;
+  height: 40px;
+  width: 400px;
+  text-align: right;
+  margin:5px 5px;
+  border-radius: 5px;
+}
+
+.App-main {
+  padding: 0px 450px 0px 450px;
+}
+
+.App-main-div {
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+  
+}
+
+.App-main-div button {
+  font-size: 25px;
+  height: 40px;
+  width: 100px;
+  margin:5px 5px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.App-footer {
+  padding: 0px 450px 0px 450px;
+ 
+}
+
+.App-footer-h2 {
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  margin: 2px 0px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0px 0px 10px 10px;
+  font-size: calc(10px + 1vmin);
+  color: white;
+}
