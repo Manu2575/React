@@ -9,21 +9,26 @@ function App() {
   const [ calcLeft, setCalcLeft ] = useState(VISOR_INICIAL);
   const [ oldcalcLeft, setOldcalcLeft ] = useState(VISOR_INICIAL);
   const [ operator, setOperator ] = useState();
-  const [ operatorResult, setOperatorResult ] = useState();
+  const [ operatorResult, setOperatorResult ] = useState(false);
+  const [ result, setResult ] = useState();
   const [ memory, setMemory ] = useState(VISOR_INICIAL);
 
   console.log(calcLeft)
+  console.log(oldcalcLeft)
 
   // Funcao que aplica os numeros no visor
   function inputNum(e) {
     let input = e.target.value;
     if(calcLeft === 0){
       setCalcLeft(input);  
+    } else if(calcLeft !== 0 && operatorResult === true){
+      setCalcLeft(input);
+      setOperatorResult(false);
     } else if(calcLeft === undefined){
-        setCalcLeft(input);  
+      setCalcLeft(input);  
     } else {
-        setCalcLeft(calcLeft + input);
-      }
+      setCalcLeft(calcLeft + input);
+    }
   }
 
   //M+ serve para você colocar um número na memória
@@ -55,16 +60,21 @@ function App() {
     setOldcalcLeft(calcLeft);
     setCalcLeft(VISOR_INICIAL);
   }
-  //Funcao que da o resultado aritmetico
+  //Funcao que da o resultado
   function calculate(){
     if(operator === '/') {
       setCalcLeft(oldcalcLeft / calcLeft);
+      setOldcalcLeft(VISOR_INICIAL);
     }if(operator === 'X') {
       setCalcLeft(oldcalcLeft * calcLeft);
+      setOldcalcLeft(VISOR_INICIAL);
     }if(operator === '-') {
       setCalcLeft(oldcalcLeft - calcLeft);
+      setOldcalcLeft(VISOR_INICIAL);
     }if(operator === '+') {
       setCalcLeft(parseFloat(oldcalcLeft) + parseFloat(calcLeft));
+      setOldcalcLeft(VISOR_INICIAL);
+      setOperatorResult(true)
     }
   }
 
@@ -85,16 +95,9 @@ function App() {
   };
 
   function cancelar(){
-    setCalcLeft(VISOR_INICIAL)
+    setCalcLeft(VISOR_INICIAL);
   };
 
-  /*useEffect(() =>{
-   raizQuadrada();
-   coseno();
-   limpa();
-  },[])*/
-
- 
   return (
   <div className="App">
     <h1 className="App-h1">Calculadora Inteligente</h1>
