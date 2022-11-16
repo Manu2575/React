@@ -124,12 +124,15 @@ function App() {
     setCalcLeft(bugCalc/100);
   };
 
-  function limpa(bugCalc = calcLeft){
-    setCalcLeft(calcLeft.pop(bugCalc));
+  function limpa(){
+    setCalcLeft(VISOR_INICIAL);
   };
 
   function cancelar(){
     setCalcLeft(VISOR_INICIAL);
+    setOldcalcLeft(VISOR_INICIAL);
+    setOperatorResult(false);
+    setResult(false);
   };
 
   return (
