@@ -21,7 +21,9 @@ function App() {
   // Funcao que aplica os numeros no visor
   function inputNum(e) {
     let input = e.target.value;
-    if(calcLeft === 0){
+    if(calcLeft === '.' || oldcalcLeft === '.'){
+      setCalcLeft(!input === '.');
+    } else if(calcLeft === 0){
       setCalcLeft(input); 
     } else if(calcLeft !== 0 && operatorResult === true){
       setCalcLeft(input);
@@ -59,6 +61,7 @@ function App() {
   function memoryDelet(){
     setMemory(VISOR_INICIAL);
     setCalcLeft(VISOR_INICIAL);
+    setOperatorResult(false);
   }
   //Funcao que guarda a operacao aritmetica e modifica a posicao no valor 
   function operatorHandler(e){
