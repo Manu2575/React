@@ -18,12 +18,34 @@ function App() {
   console.log(result)
   console.log(operatorResult)
 
+  // funcao que manipula o ponto no visor
+  function inputScore(e) {
+    let input = e.target.value;
+
+    if (!calcLeft.toString().includes(".")) {
+      setCalcLeft(calcLeft + input);
+    }
+  }
+
+   // funcao que manipula o zero no visor
+  function inputZero(e) {
+    let input = e.target.value;
+    if(calcLeft === 0 && oldcalcLeft === 0){
+      setCalcLeft(input.pop());
+    } else if(calcLeft !== 0 && oldcalcLeft === 0 && operatorResult === true){
+      setCalcLeft(VISOR_INICIAL);
+      setOperatorResult(false);
+    } else if(calcLeft === 0 && oldcalcLeft === 0 && operatorResult === false){
+      setCalcLeft(input.pop());
+    }else{
+      setCalcLeft(calcLeft+input);
+    }
+  }
+
   // Funcao que aplica os numeros no visor
   function inputNum(e) {
     let input = e.target.value;
-    if(calcLeft === '.' || oldcalcLeft === '.'){
-      setCalcLeft(!input === '.');
-    } else if(calcLeft === 0){
+    if(calcLeft === 0){
       setCalcLeft(input); 
     } else if(calcLeft !== 0 && operatorResult === true){
       setCalcLeft(input);
@@ -87,6 +109,7 @@ function App() {
       setOldcalcLeft(calcLeft);
       setCalcLeft(VISOR_INICIAL);
       setResult(true);
+      setOperatorResult(false);
     }
     
   }
@@ -177,8 +200,8 @@ function App() {
           <button onClick={operatorHandler} value='/'>/</button>
         </div>
         <div>
-          <button onClick={inputNum} value={0}>0</button>
-          <button onClick={inputNum} value={'.'}>.</button>
+          <button onClick={inputZero} value={0}>0</button>
+          <button onClick={inputScore} value={'.'}>.</button>
           <button onClick={() => {coseno() }}>Cos</button>
           <button onClick={operatorHandler} value='+'>+</button>
           <button onClick={() => {calculate()}}>=</button>
