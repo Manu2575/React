@@ -12,18 +12,39 @@ function App() {
   const [ operatorResult, setOperatorResult ] = useState(false);
   const [ result, setResult ] = useState(false);
   const [ memory, setMemory ] = useState(VISOR_INICIAL);
+  const [ ponto, setPonto ] = useState(true);
+  const [ num, setNum ] = useState(true);
 
   console.log(calcLeft)
   console.log(oldcalcLeft)
   console.log(result)
   console.log(operatorResult)
+  console.log(ponto)
+  console.log(num)
 
   // funcao que manipula o ponto no visor
   function inputScore(e) {
     let input = e.target.value;
-
-    if (!calcLeft.toString().includes(".")) {
-      setCalcLeft(calcLeft + input);
+    if(ponto === false){
+      if (!calcLeft.toString().includes(".")) {
+        setCalcLeft(VISOR_INICIAL + input);
+        setPonto(true);
+      }
+    }else if(num === false){
+      if (!calcLeft.toString().includes(".")) {
+        setCalcLeft(calcLeft + input);
+        setNum(true);
+      }
+    }else if(ponto === true){
+      if (!calcLeft.toString().includes(".")) {
+        setCalcLeft(calcLeft + input);
+        setPonto(true);
+      }
+    }else if(num === true){
+      if (!calcLeft.toString().includes(".")) {
+        setCalcLeft(calcLeft + input);
+        setNum(true);
+      }
     }
   }
 
@@ -32,13 +53,20 @@ function App() {
     let input = e.target.value;
     if(calcLeft === 0 && oldcalcLeft === 0){
       setCalcLeft(input.pop());
+      console.log("eu")
     } else if(calcLeft !== 0 && oldcalcLeft === 0 && operatorResult === true){
       setCalcLeft(VISOR_INICIAL);
       setOperatorResult(false);
+      console.log("tu")
     } else if(calcLeft === 0 && oldcalcLeft === 0 && operatorResult === false){
       setCalcLeft(input.pop());
-    }else{
+      console.log("ele")
+    } else if(calcLeft === 0 && oldcalcLeft !== 0 && result === true && num === false){
+      setCalcLeft(input.pop());
+      console.log("nos")
+    } else {
       setCalcLeft(calcLeft+input);
+      console.log("vos")
     }
   }
 
@@ -47,16 +75,22 @@ function App() {
     let input = e.target.value;
     if(calcLeft === 0){
       setCalcLeft(input); 
-    } else if(calcLeft !== 0 && operatorResult === true){
+    } else if(calcLeft !== 0 && operatorResult === true && ponto === false){
       setCalcLeft(input);
       setOperatorResult(false);
-    }  else if(calcLeft === 0 && operatorResult === true){
+    }  else if(calcLeft === 0 && operatorResult === true && ponto === false){
       setCalcLeft(input);
       setOperatorResult(false);
     } else if(calcLeft === undefined){
       setCalcLeft(input);  
     } else if(calcLeft === 0 && result === true){
       setCalcLeft(input);  
+    } else if(calcLeft === 0 && operatorResult === true && ponto === true){
+      setCalcLeft(calcLeft + input);
+      setOperatorResult(false);  
+    } else if(calcLeft !== 0 && operatorResult === true && ponto === true){
+      setCalcLeft(calcLeft + input); 
+      setOperatorResult(false); 
     } else {
       setCalcLeft(calcLeft + input);
     }
@@ -92,51 +126,78 @@ function App() {
       setOperator(operatorInput);
       setOldcalcLeft(oldcalcLeft / calcLeft);
       setCalcLeft(VISOR_INICIAL);
+      setNum(false);
     }else if(operator === 'X' && result === true){
       setOperator(operatorInput);
       setOldcalcLeft(oldcalcLeft * calcLeft);
       setCalcLeft(VISOR_INICIAL);
+      setNum(false);
     }else if(operator === '-' && result === true){
       setOperator(operatorInput);
       setOldcalcLeft(oldcalcLeft - calcLeft);
       setCalcLeft(VISOR_INICIAL);
+      setNum(false);
     }else if(operator === '+' && result === true){
       setOperator(operatorInput);
       setOldcalcLeft(parseFloat(oldcalcLeft) + parseFloat(calcLeft));
       setCalcLeft(VISOR_INICIAL);
+      setNum(false);
     }else {
       setOperator(operatorInput);
       setOldcalcLeft(calcLeft);
       setCalcLeft(VISOR_INICIAL);
       setResult(true);
       setOperatorResult(false);
+      setNum(false);
     }
     
   }
   //Funcao que da o resultado
   function calculate(){
     if(operator === '/') {
-      setCalcLeft(oldcalcLeft / calcLeft);
-      setOldcalcLeft(VISOR_INICIAL);
-      setOperatorResult(true);
-      setResult(false);
+      if(oldcalcLeft !== 0 && calcLeft !== 0){
+        setCalcLeft(oldcalcLeft / calcLeft);
+        setOldcalcLeft(VISOR_INICIAL);
+        setOperatorResult(true);
+        setResult(false);
+        setPonto(false);
+        setOperator();
+      } else if(oldcalcLeft === 0 && calcLeft === 0){
+        setCalcLeft("Resultado Indefinido");
+        setOperatorResult(true);
+        setResult(false);
+        setPonto(false);
+        setOperator();
+      } else if(oldcalcLeft !== 0 && calcLeft === 0){
+        setCalcLeft("Não é possível dividir por zero");
+        setOperatorResult(true);
+        setResult(false);
+        setPonto(false);
+        setOperator();
+      }
     }if(operator === 'X') {
       setCalcLeft(oldcalcLeft * calcLeft);
       setOldcalcLeft(VISOR_INICIAL);
       setOperatorResult(true);
       setResult(false);
+      setPonto(false);
+      setOperator();
     }if(operator === '-') {
       setCalcLeft(oldcalcLeft - calcLeft);
       setOldcalcLeft(VISOR_INICIAL);
       setOperatorResult(true);
       setResult(false);
+      setPonto(false);
+      setOperator();
     }if(operator === '+') {
       setCalcLeft(parseFloat(oldcalcLeft) + parseFloat(calcLeft));
       setOldcalcLeft(VISOR_INICIAL);
       setOperatorResult(true);
       setResult(false);
+      setPonto(false);
+      setOperator();
     }
-  }
+  };
 
   function raizQuadrada(bugCalc = calcLeft){
     setCalcLeft(Math.sqrt(bugCalc));
@@ -159,6 +220,9 @@ function App() {
     setOldcalcLeft(VISOR_INICIAL);
     setOperatorResult(false);
     setResult(false);
+    setNum(true);
+    setPonto(true);
+    setOperator();
   };
 
   return (
